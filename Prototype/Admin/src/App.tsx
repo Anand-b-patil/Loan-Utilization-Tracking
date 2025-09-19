@@ -1,7 +1,22 @@
+import React from 'react';
 import { useState } from 'react';
 import { AppShell, UserRole } from './components/app-shell';
 import { LandingPage } from './components/landing-page';
 import { BeneficiaryDashboard } from './components/beneficiary/dashboard';
+import { BeneficiaryLoan } from './components/beneficiary/loan';
+import { BeneficiarySubmit } from './components/beneficiary/submit';
+import { BeneficiarySubmissions } from './components/beneficiary/submissions';
+import { OfficerInbox } from './components/officer/inbox';
+import { OfficerAnalytics } from './components/officer/analytics';
+import { OfficerAudit } from './components/officer/audit';
+import { OfficerSubmissionDetail } from './components/officer/submission-detail';
+import { AdminOverview } from './components/admin/overview';
+import { AdminBeneficiaries } from './components/admin/beneficiaries';
+import { AdminLoans } from './components/admin/loans';
+import { AdminSubmissions } from './components/admin/submissions';
+import { AdminUsers } from './components/admin/users';
+import { AdminImports } from './components/admin/imports';
+import { AdminSettings } from './components/admin/settings';
 import { Toaster } from './components/ui/sonner';
 
 export default function App() {
@@ -15,7 +30,7 @@ export default function App() {
       beneficiary: '/b/dashboard',
       officer: '/o/inbox',
       admin: '/a/overview'
-    };
+    } as const;
     setCurrentPath(defaultPaths[role]);
   };
 
@@ -28,12 +43,71 @@ export default function App() {
       return <LandingPage onRoleSelect={handleRoleSelect} />;
     }
 
-    // Start with just beneficiary dashboard for testing
-    if (currentPath.startsWith('/b/') && currentPath === '/b/dashboard') {
-      return <BeneficiaryDashboard onNavigate={handleNavigate} />;
+    // Beneficiary routes
+    if (currentPath.startsWith('/b/')) {
+      if (currentPath === '/b/dashboard') {
+        return <BeneficiaryDashboard onNavigate={handleNavigate} />;
+      }
+      if (currentPath === '/b/loan') {
+        return <BeneficiaryLoan />;
+      }
+      if (currentPath === '/b/submit') {
+        return <BeneficiarySubmit onNavigate={handleNavigate} />;
+      }
+      if (currentPath === '/b/submissions') {
+        return <BeneficiarySubmissions onNavigate={handleNavigate} />;
+      }
+      // /b/submissions/:id
+      if (currentPath.startsWith('/b/submissions/')) {
+        const submissionId = currentPath.split('/').pop() || '';
+        return <BeneficiarySubmissions submissionId={submissionId} onNavigate={handleNavigate} />;
+      }
     }
 
-    // Simplified routing for other paths
+    // Officer routes
+    if (currentPath.startsWith('/o/')) {
+      if (currentPath === '/o/inbox') {
+        return <OfficerInbox onNavigate={handleNavigate} />;
+      }
+      if (currentPath === '/o/analytics') {
+        return <OfficerAnalytics />;
+      }
+      if (currentPath === '/o/audit') {
+        return <OfficerAudit />;
+      }
+      // /o/submission/:id
+      if (currentPath.startsWith('/o/submission/')) {
+        const submissionId = currentPath.split('/').pop() || '';
+        return <OfficerSubmissionDetail submissionId={submissionId} onNavigate={handleNavigate} />;
+      }
+    }
+
+    // Admin routes
+    if (currentPath.startsWith('/a/')) {
+      if (currentPath === '/a/overview') {
+        return <AdminOverview />;
+      }
+      if (currentPath === '/a/beneficiaries') {
+        return <AdminBeneficiaries />;
+      }
+      if (currentPath === '/a/loans') {
+        return <AdminLoans />;
+      }
+      if (currentPath === '/a/submissions') {
+        return <AdminSubmissions onNavigate={handleNavigate} />;
+      }
+      if (currentPath === '/a/users') {
+        return <AdminUsers />;
+      }
+      if (currentPath === '/a/imports') {
+        return <AdminImports />;
+      }
+      if (currentPath === '/a/settings') {
+        return <AdminSettings />;
+      }
+    }
+
+    // Fallback generic view
     return (
       <div className="p-8">
         <h1>Welcome to {currentRole} dashboard</h1>
