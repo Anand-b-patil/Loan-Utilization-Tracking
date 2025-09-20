@@ -3,47 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prototype</title>
+    <title>Loan Utilization Tracking System</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="SIH2025-logo.png">
 </head>
 <body>
     <header class="site-header">
         <div class="container">
-            <h1 class="site-title">Prototype</h1>
+            <div class="header-content">
+                <h1 class="site-title">Loan Utilization Tracking System</h1>
+                <p class="site-subtitle">Smart India Hackathon 2025</p>
+            </div>
             <a class="logo-link" href="#" aria-label="SIH Home">
-                <img class="sih-logo" src="D:\Projects\LOAN\Prototype\WhatsApp Image 2025-09-18 at 19.40.35_4fe5666d.jpg" alt="SIH logo">
+                <img class="sih-logo" src="SIH2025-logo.png" alt="SIH logo">
             </a>
         </div>
     </header>
 
-    <nav class="navbar" aria-label="Main Navigation">
-        <div class="container">
-            <a class="nav-link" href="http://localhost:3000" target="_blank" rel="noopener noreferrer" aria-label="Go to Admin">Admin</a>
-        </div>
-    </nav>
-
     <main class="container">
-        <section class="cards-grid" aria-label="Entry points">
-            <a class="card" href="page.html" aria-label="Go to User Side">
+        <section class="hero-section">
+            <h2 class="hero-title">Welcome to the Loan Utilization Tracking System</h2>
+            <p class="hero-description">A comprehensive platform for managing loan applications, tracking utilization, and providing administrative oversight.</p>
+        </section>
+
+        <section class="cards-grid" aria-label="Application Entry Points">
+            <div class="card" data-app="admin">
+                <div class="card-icon">🏛️</div>
                 <div class="card-body">
-                    <h2 class="card-title">User Side</h2>
-                    <p class="card-text">Access features for end users.</p>
+                    <h2 class="card-title">Admin Dashboard</h2>
+                    <p class="card-text">Administrative interface for managing loans, users, and submissions. Complete oversight and control panel.</p>
+                    <div class="card-actions">
+                        <button class="btn btn-primary" onclick="openApp('admin')">Open Admin</button>
+                        <button class="btn btn-secondary" onclick="startDevServer('admin')">Start Dev Server</button>
+                    </div>
                 </div>
-            </a>
-            <a class="card" href="http://localhost:3000"  target="_blank" rel="noopener noreferrer" aria-label="Go to Admin Side">
+            </div>
+
+            <div class="card" data-app="beneficiary">
+                <div class="card-icon">📱</div>
                 <div class="card-body">
-                    <h2 class="card-title">Admin Side</h2>
-                    <p class="card-text">Manage configuration and oversight.</p>
+                    <h2 class="card-title">Beneficiary Mobile App</h2>
+                    <p class="card-text">Mobile interface for loan beneficiaries to submit applications and track their loan status.</p>
+                    <div class="card-actions">
+                        <button class="btn btn-primary" onclick="openApp('beneficiary')">Open Mobile App</button>
+                        <button class="btn btn-secondary" onclick="startDevServer('beneficiary')">Start Dev Server</button>
+                    </div>
                 </div>
-            </a>
-            <a class="card" href="page.html" aria-label="Go to Backend Side">
+            </div>
+
+            <div class="card" data-app="backend">
+                <div class="card-icon">🏗️</div>
                 <div class="card-body">
-                    <h2 class="card-title">Backend Side</h2>
-                    <p class="card-text">Developer and service endpoints.</p>
+                    <h2 class="card-title">Backend Architecture</h2>
+                    <p class="card-text">API documentation and backend service architecture overview. Technical specifications and endpoints.</p>
+                    <div class="card-actions">
+                        <button class="btn btn-primary" onclick="openApp('backend')">Open Architecture</button>
+                        <button class="btn btn-secondary" onclick="startDevServer('backend')">Start Dev Server</button>
+                    </div>
                 </div>
-            </a>
+            </div>
+        </section>
+
+        <section class="deployment-section">
+            <h3 class="section-title">Quick Start</h3>
+            <div class="deployment-options">
+                <div class="deployment-card">
+                    <h4>Start All Applications</h4>
+                    <p>Start all three applications simultaneously</p>
+                    <button class="btn btn-success" onclick="startAllApps()">Start All Apps</button>
+                </div>
+                <div class="deployment-card">
+                    <h4>Deploy to Production</h4>
+                    <p>Deploy the complete system</p>
+                    <button class="btn btn-info" onclick="deploySystem()">Deploy System</button>
+                </div>
+            </div>
         </section>
     </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2025 Smart India Hackathon. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const appConfigs = {
+            admin: {
+                devPort: 5173,
+                path: 'Admin/index.html',
+                name: 'Admin Dashboard'
+            },
+            beneficiary: {
+                devPort: 5174,
+                path: 'Beneficiary Mobile App Design/index.html',
+                name: 'Beneficiary Mobile App'
+            },
+            backend: {
+                devPort: 5175,
+                path: 'Backend Architecture/index.html',
+                name: 'Backend Architecture'
+            }
+        };
+
+        function openApp(appType) {
+            const config = appConfigs[appType];
+            if (config) {
+                // Try to open the dev server first, fallback to static file
+                const devUrl = `http://localhost:${config.devPort}`;
+                const staticUrl = config.path;
+                
+                // Open dev server in new tab
+                window.open(devUrl, '_blank');
+                
+                // Show notification
+                showNotification(`Opening ${config.name} at ${devUrl}`, 'info');
+            }
+        }
+
+        function startDevServer(appType) {
+            const config = appConfigs[appType];
+            if (config) {
+                showNotification(`Starting ${config.name} development server...`, 'info');
+                // In a real implementation, this would trigger the dev server
+                console.log(`Starting dev server for ${appType} on port ${config.devPort}`);
+            }
+        }
+
+        function startAllApps() {
+            showNotification('Starting all applications...', 'success');
+            Object.keys(appConfigs).forEach(appType => {
+                setTimeout(() => {
+                    openApp(appType);
+                }, 1000 * Object.keys(appConfigs).indexOf(appType));
+            });
+        }
+
+        function deploySystem() {
+            showNotification('Deploying system to production...', 'info');
+            // In a real implementation, this would trigger deployment
+            console.log('Deploying system...');
+        }
+
+        function showNotification(message, type = 'info') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.textContent = message;
+            
+            // Add to page
+            document.body.appendChild(notification);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Add some interactivity to cards
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
 </body>
 </html>
 
