@@ -7,6 +7,7 @@ import { Dashboard } from './components/Dashboard';
 import { NewSubmissionFlow } from './components/NewSubmissionFlow';
 import { SubmissionsScreen } from './components/SubmissionsScreen';
 import { SubmissionDetailScreen } from './components/SubmissionDetailScreen';
+import { MobilePhoneFrame } from './components/MobilePhoneFrame';
 
 type AppScreen = 
   | 'splash'
@@ -99,8 +100,10 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      {renderCurrentScreen()}
-    </div>
+    <MobilePhoneFrame>
+      <div className="min-h-screen bg-background">
+        {renderCurrentScreen()}
+      </div>
+    </MobilePhoneFrame>
   );
 }
