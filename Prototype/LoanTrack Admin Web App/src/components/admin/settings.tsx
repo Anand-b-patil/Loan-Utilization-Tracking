@@ -379,7 +379,7 @@ export function AdminSettings() {
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-sm">High Risk (Red)</span>
-                    <span className="text-sm font-mono">< 0.5</span>
+                    <span className="text-sm font-mono">&lt; 0.5</span>
                   </div>
                 </div>
               </div>
