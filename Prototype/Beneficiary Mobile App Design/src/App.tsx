@@ -2,19 +2,16 @@ import { useState } from 'react';
 import { SplashScreen } from './components/SplashScreen';
 import { OnboardingScreen } from './components/OnboardingScreen';
 import { LoginScreen } from './components/LoginScreen';
-import { ConsentScreen } from './components/ConsentScreen';
 import { Dashboard } from './components/Dashboard';
 import { NewSubmissionFlow } from './components/NewSubmissionFlow';
 import { SubmissionsScreen } from './components/SubmissionsScreen';
 import { SubmissionDetailScreen } from './components/SubmissionDetailScreen';
 import { MobilePhoneFrame } from './components/MobilePhoneFrame';
-import { HomeButton } from './components/HomeButton';
 
 type AppScreen = 
   | 'splash'
   | 'onboarding'
   | 'login'
-  | 'consent'
   | 'dashboard'
   | 'new-submission'
   | 'submissions'
@@ -51,15 +48,8 @@ export default function App() {
       case 'login':
         return (
           <LoginScreen 
-            onLogin={() => navigateToScreen('consent')}
+            onLogin={() => navigateToScreen('dashboard')}
             onBack={() => navigateToScreen('onboarding')}
-          />
-        );
-      
-      case 'consent':
-        return (
-          <ConsentScreen 
-            onComplete={() => navigateToScreen('dashboard')}
           />
         );
       
@@ -103,7 +93,6 @@ export default function App() {
   return (
     <MobilePhoneFrame>
       <div className="min-h-screen bg-background relative">
-        <HomeButton />
         {renderCurrentScreen()}
       </div>
     </MobilePhoneFrame>
