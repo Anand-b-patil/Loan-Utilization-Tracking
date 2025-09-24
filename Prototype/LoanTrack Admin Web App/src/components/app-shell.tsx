@@ -78,6 +78,15 @@ export function AppShell({ role, currentPath, onNavigate, children }: AppShellPr
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const navigation = navigationConfig[role];
 
+  // Get the home route for the current role
+  const getHomeRoute = () => {
+    const homeRoutes = {
+      beneficiary: '/b/dashboard',
+      officer: '/o/inbox',
+      admin: '/a/overview'
+    };
+    return homeRoutes[role];
+  };
   const Sidebar = ({ className }: { className?: string }) => (
     <div className={cn('flex h-full w-64 flex-col border-r bg-card', className)}>
       <div className="flex h-16 items-center px-6 border-b">
@@ -148,6 +157,16 @@ export function AppShell({ role, currentPath, onNavigate, children }: AppShellPr
               <Menu className="h-5 w-5" />
             </Button>
             
+            {/* Home Button */}
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={() => onNavigate(getHomeRoute())}
+              className="flex items-center gap-2 text-muted-foreground hover:text-foreground"
+            >
+              <Home className="h-4 w-4" />
+              <span className="hidden sm:inline">Home</span>
+            </Button>
             <div className="relative hidden md:block">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input 
