@@ -85,14 +85,12 @@ const styles = `
     0 20px 40px rgba(0, 0, 0, 0.3),
     0 0 0 1px rgba(255, 255, 255, 0.1) inset,
     0 0 20px rgba(0, 0, 0, 0.2);
-  transform: perspective(1000px) rotateY(-5deg) rotateX(5deg);
-  transition: transform 0.3s ease;
+  transform: none;
+  transition: none;
   z-index: 1;
 }
 
-.mobile-phone-frame:hover {
-  transform: perspective(1000px) rotateY(-2deg) rotateX(2deg);
-}
+/* hover tilt removed */
 
 .phone-bezel {
   width: 100%;
@@ -257,12 +255,10 @@ const styles = `
 /* Responsive adjustments */
 @media (max-width: 1024px) {
   .mobile-phone-frame {
-    transform: perspective(1000px) rotateY(-2deg) rotateX(2deg);
+    transform: none;
   }
   
-  .mobile-phone-frame:hover {
-    transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
-  }
+  /* hover transform removed */
 }
 
 @media (max-width: 768px) {
@@ -299,27 +295,7 @@ const styles = `
   }
 }
 
-/* Animation for loading */
-@keyframes phoneGlow {
-  0%, 100% {
-    box-shadow: 
-      0 0 0 2px #333,
-      0 20px 40px rgba(0, 0, 0, 0.3),
-      0 0 0 1px rgba(255, 255, 255, 0.1) inset,
-      0 0 20px rgba(0, 0, 0, 0.2);
-  }
-  50% {
-    box-shadow: 
-      0 0 0 2px #555,
-      0 20px 40px rgba(0, 0, 0, 0.3),
-      0 0 0 1px rgba(255, 255, 255, 0.2) inset,
-      0 0 30px rgba(0, 0, 0, 0.3);
-  }
-}
-
-.mobile-phone-frame.loading {
-  animation: phoneGlow 2s ease-in-out infinite;
-}
+/* Loading glow animation removed */
 
 /* Screen content adjustments for mobile frame */
 .screen-content .min-h-screen {
