@@ -159,13 +159,13 @@ export function AppShell({ role, currentPath, onNavigate, children }: AppShellPr
             
             {/* Home Button */}
             <Button 
-              variant="ghost" 
+              variant="default" 
               size="sm"
-              onClick={() => onNavigate(getHomeRoute())}
-              className="flex items-center gap-2 text-muted-foreground hover:text-foreground"
+              onClick={() => { window.location.href = '/'; }}
+              className="flex flex-col items-center justify-center gap-0.5 rounded-full px-3 py-2 shadow-md transition-transform hover:scale-[1.02] active:scale-[0.98]"
             >
               <Home className="h-4 w-4" />
-              <span className="hidden sm:inline">Home</span>
+              <span className="text-[10px] leading-none">HOME</span>
             </Button>
             <div className="relative hidden md:block">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
